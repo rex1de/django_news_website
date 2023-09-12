@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}{{profile.user.username}}{% endblock title %}
+
+{% block content %}
+
+<div class="container rounded bg-light mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded" width="200" height="200" src="{{profile.avatar.url}}">
+                <span class="font-weight-bold mt-2">{{profile.user.username}}</span> 
+                <span class="font-weight-bold">{{profile.bio}}</span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="text-right">Профиль</h3>
+                </div>
+                <h4 class="text-right">Дата регистрации: {{profile.user.date_joined}}</h4>
+                <h4 class="text-right">Последний онлайн: {{profile.user.last_login}}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

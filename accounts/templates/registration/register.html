@@ -1,0 +1,28 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Регистрация{% endblock title %}
+
+{% block content %}
+
+<main class="form-signin w-100 m-auto">
+    <form method="post" action="{% url 'accounts:register' %}">
+    {% csrf_token %}
+      <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+  
+      <div class="form-floating">
+        <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Логин">
+        <label for="floatingInput">Логин</label>
+      </div>
+      <div class="form-floating">
+        <input type="email" name="email" class="form-control" id="floatingInput" placeholder="Почта">
+        <label for="floatingPassword">Электронная почта</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Пароль">
+        <label for="floatingPassword">Пароль</label>
+      </div>
+  
+      <button class="btn btn-primary w-100 py-2 my-3" type="submit" value="login">Зарегестрироваться</button>
+    </form>
+{% endblock %}

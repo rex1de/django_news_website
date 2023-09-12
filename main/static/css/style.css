@@ -1,0 +1,54 @@
+:root {    --bs-nav-link-padding-x: 0;
+    --bs-nav-link-padding-y: 0.5rem;
+    --bs-nav-link-font-weight: ;
+    --bs-nav-link-color: var(--bs-navbar-color);
+    --bs-nav-link-hover-color: var(--bs-navbar-hover-color);
+    --bs-nav-link-disabled-color: var(--bs-navbar-disabled-color);
+}
+
+.news-img{
+    height: 400px;
+    width: 700px;
+    object-fit: cover;
+}
+
+h2{
+    color: grey;
+    font-size: 12px;
+}
+p{
+    font-size: 20px;
+}
+main{
+    padding-top: 70px;
+}
+.card-body *{
+    text-decoration: none !important;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 1rem;
+}
+
+.profile {
+    color: rgba(255, 255, 255, 0.55);
+
+}
+.profile:hover {
+    color: rgba(255, 255, 255, 0.75);
+}
+a{text-decoration: none;}
+
+.footer { 
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    line-height: 20px;
+}
+
+.footer-text {
+    margin-left: 600px;
+}
+

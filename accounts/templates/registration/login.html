@@ -1,0 +1,59 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Логин{% endblock title %}
+
+{% block content %}
+
+<main class="form-signin w-100 m-auto">
+    <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+      <h1 class="h3 mb-3 fw-normal">Вход в аккаунт</h1>
+  
+      <div class="form-floating">
+        <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Логин">
+        <label for="floatingInput">Логин</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Пароль">
+        <label for="floatingPassword">Пароль</label>
+      </div>
+  
+      <div class="form-check text-start my-3">
+        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Запомнить
+        </label>
+      </div>
+      <button class="btn btn-primary w-100 py-2" type="submit" value="login">Войти</button>
+    </form>
+  </main>
+
+{% if form.errors %}
+  <p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+  {% else %}
+    <p>Please login to see this page.</p>
+  {% endif %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
