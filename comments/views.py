@@ -1,3 +1,13 @@
+from django.shortcuts import render
+
+# Create your views here.
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
+from .models import Comment
+from main.models import News
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 from django.shortcuts import render, get_object_or_404, redirect

@@ -4,6 +4,12 @@
 {% block title %}{{profile.user.username}}{% endblock title %}
 
 {% block content %}
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}{{profile.user.username}}{% endblock title %}
+
+{% block content %}
 
 <div class="container rounded bg-light mt-5 mb-5">
     <div class="row">
