@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'main:index' %}">Новости</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin:index' %}">Админ-панель</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'main:create_post' %}">Опубликовать новость</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Категории
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          {% for category in categories %}
+          {% if not category.parent %}
+            {% if category.get_child_categories|length %}
+              <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" data-toggle="dropdown" href="{{category.get_absolute_url}}">{{category.name}}</a>
+                <ul class="dropdown-menu">
+                  {% for child_category in category.get_child_categories %}
+                  <a class="dropdown-item" href="{{child_category.get_absolute_url}}">{{child_category.name}}</a>
+                  {% endfor %}
+                </ul>
+              </li>
+              {% else %}
+              <li><a class="dropdown-item" href="{{category.get_absolute_url}}">{{category.name}}</a></li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          </ul>
+        </li>
+        {% comment %} <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Категории</a>
+          <ul class="dropdown-menu">
+            {% for category in categories %}
+            {% if category.get_child_categories %}
+            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{category.name}}</a>
+            <ul class="dropdown-menu">
+              {% for child_category in category.get_child_categories %}
+              <li>
+                <a class="dropdown-item" href="{{category.get_absolute_url}}">{{category.name}}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% else %} 
+            <li>
+              <a class="dropdown-item" href="{{category.get_absolute_url}}">{{category.name}}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </li> {% endcomment %}
+      </ul>
+      <form class="d-flex" role="search" action="{% url 'news:search' %}" method="GET">
+        <input class="form-control me-2" type="search" name="q" placeholder="Поиск" aria-label="Search" />
+        <button class="btn btn-outline-success me-5" type="submit">Поиск</button>
+      </form>
+      {% if not user.is_authenticated %}
+      <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">Вход</a>
+      <a href="{% url 'accounts:register' %}" class="btn btn-outline-primary me-2">Регистрация</a>
+      {% else %}
+      <a class="nav-link profile me-3" style="" href="{% url 'accounts:profile' %}">{{user.get_username}}</a>
+      <a href="{% url 'logout' %}" class="btn btn-outline-danger me-2">Выход</a>
+      {% endif %}
+    </div>
+  </div>
+</nav> 
+
+{% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Navbar</a>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link 1</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown link
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" data-toggle="dropdown" href="#">Something else here</a>
+            <ul class="dropdown-menu">
+              <a class="dropdown-item" href="#">A</a>
+              <a class="dropdown-item" href="#">b</a>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav> {% endcomment %}

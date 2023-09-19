@@ -1,0 +1,37 @@
+    {% if not comment.parent or reply %}
+      <div {% if reply %} class="toast show ms-4" {% else %} class="toast show" {% endif %} role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header d-flex mb-3">
+            <a href="{{child_comment.author.profile.get_absolute_url}}"><strong class="me-auto">{{comment.author}}</strong></a>
+            {% if reply %}
+            <small class="ms-3">в ответ <a href="{{comment.profile.get_absolute_url}}">{{comment.author}}</a></small>
+            {% endif %}
+            <small class="text-body-secondary ms-auto">{{comment.created}}</small>
+          </div>
+        <div class="toast-body d-flex justify-content-between" style="padding-top: 0;">
+          {{comment.text}} 
+          <p class="gap-1" style="margin-block-start: 0; margin-block-end: 0;">
+            <a class="h6" data-bs-toggle="collapse" href="#comment{{comment.id}}" role="button" aria-expanded="false">
+              Ответить
+            </a>
+          </p>
+        </div>
+      </div>
+      {% if comment.get_child_comments|length %}
+      {% for child_comment in comment.get_child_comments %}
+      {%with comment=child_comment reply=True template_name="main/comment.html" %}
+        {%include template_name%}
+      {%endwith%}
+      {% endfor %}
+      {% endif %}
+    {% endif %}
+    <div class="collapse" id="comment{{comment.id}}" style="pointer-events: auto;">
+      <form action="{% url 'comments:post_comment' id=news.id slug=news.slug %}" method="POST" style="width: 400;">
+        <div class="mb-3">
+          <input type="hidden" name="related_comment" value="{{comment.id}}">
+          <label for="exampleFormControlTextarea1" class="form-label">Текст комментария</label>
+          <textarea class="form-control" name="comment_text" id="exampleFormControlTextarea1" rows="2" style="resize: none;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg mb-5">Отправить комментарий</button>
+        {% csrf_token %}
+      </form>
+    </div>  

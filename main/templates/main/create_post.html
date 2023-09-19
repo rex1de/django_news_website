@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+{%load static%}
+{% block title %}Опубликовать новость{% endblock title %}
+{% block content %}
+
+    <p class="h3 mb-3">Опубликовать новость</p>
+    <form action="{% url 'main:create_post' %}" method="POST" style="width: 500px;" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-floating mb-1">
+            <input type="text" name="title" class="form-control" id="floatingInput" placeholder="Логин">
+            <label for="floatingInput">Заголовок</label>
+        </div>
+        <div class="form-floating mb-1">
+            <input type="textarea" name="description" class="form-control" id="floatingInput" placeholder="Логин">
+            <label for="floatingInput">Краткое описание новости</label>
+        </div>
+        <div class="mb-3">
+            <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="7" placeholder="Текст новости"style="resize: none;"></textarea>
+        </div>
+        <label for="select">Категория</label>
+        <select name="category" class="form-select mb-3" id="select" aria-label="Default select example">
+            {% for category in categories %}    
+            <option value="{{category.id}}">{{category.name}}</option>
+            {% endfor %}
+        </select>
+        <label for="inputGroupFile03">Изображение</label>
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" name="image" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg mb-5">Создать новость</button>
+    </form>
+    
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}
+  {{ category.name }}
+{% endblock %}
+{% block content %}
+<p class="h1">{{ category.name }}</p>
+  {% for news_item in news %}
+    <a href="{{ news_item.get_absolute_url }}" style="width: 500px; display: inline-block">
+      <div class="card" style="width: 500px;">
+        <img src="{{ news_item.image.url }}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ news_item.title }}</h5>
+          <p>
+            <small>{{ news_item.created }}</small>
+          </p>
+          <p class="card-text">{{ news_item.description }}</p>
+        </div>
+      </div>
+    </a>
+  {% endfor %}
+{% endblock %}

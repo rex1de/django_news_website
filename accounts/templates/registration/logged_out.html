@@ -1,0 +1,12 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Выход из аккаунта{% endblock title %}
+
+{% block content %}
+
+<h1 class="h3 mb-3 fw-normal">Вы успешно вышли из аккаунта</h1>
+<a href="/login" class="btn btn-primary">Войти в аккаунт</a>
+<a href="{% url 'main:index' %}" class="btn btn-primary">Вернуться на главную</a>
+
+{% endblock %}

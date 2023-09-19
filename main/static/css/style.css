@@ -1,0 +1,123 @@
+:root {    --bs-nav-link-padding-x: 0;
+    --bs-nav-link-padding-y: 0.5rem;
+    --bs-nav-link-font-weight: ;
+    --bs-nav-link-color: var(--bs-navbar-color);
+    --bs-nav-link-hover-color: var(--bs-navbar-hover-color);
+    --bs-nav-link-disabled-color: var(--bs-navbar-disabled-color);
+}
+
+.news-img{
+    height: 400px;
+    width: 700px;
+    object-fit: cover;
+}
+
+.under-news{
+    width: 1200px;
+}
+
+h2{
+    color: grey;
+    font-size: 12px;
+}
+p{
+    font-size: 20px;
+}
+main{
+    padding-top: 70px;
+}
+.card-body *{
+    text-decoration: none !important;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 1rem;
+}
+
+.profile {
+    color: rgba(255, 255, 255, 0.55);
+
+}
+.profile:hover {
+    color: rgba(255, 255, 255, 0.75);
+}
+a{text-decoration: none;}
+
+.footer { 
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    line-height: 20px;
+}
+
+.footer-text {
+    margin-left: 600px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
+
+.dropdown-submenu{
+    position: relative;
+}
+.dropdown-submenu a::after{
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 3px;
+    top: 40%;
+}
+.dropdown-submenu:hover .dropdown-menu, .dropdown-submenu:focus .dropdown-menu{
+    display: flex;
+    flex-direction: column;
+    position: absolute !important;
+    margin-top: -30px;
+    left: 100%;
+}
+@media (max-width: 992px) {
+    .dropdown-menu{
+        width: 50%;
+    }
+    .dropdown-menu .dropdown-submenu{
+        width: auto;
+    }
+}
