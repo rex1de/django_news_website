@@ -2,9 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from slugify import slugify
 from django.http import HttpResponse
 from .models import News, Category
+from accounts.models import Profile
 from django.db.models import Q
 from comments.models import Comment
-from .bot import send_news_details
+from .subscribe_bot import *
 
 # Create your views here.
 
@@ -40,17 +41,22 @@ def create_post(request):
         image = request.FILES.get('image')
         slug = slugify(title)
         category = get_object_or_404(Category, id=id)
-
         news = News(title=title, text=text, description=description, category=category, image=image, author=request.user, slug=slug)
         news.save()
         news_detail = {'title': news.title,
                 'description': news.description,
                 'image': news.image.url,
-                'category': news.category.name}
-        send_news_details(news_detail)
+                'category': news.category.name,
+                'url': news.get_absolute_url()}
+        subscribed_users = Profile.objects.filter(subscription_categories=category)
+        telegram_ids = []
+        for i in subscribed_users:
+            telegram_ids.append(subscribed_users.telegram) 
+        send_to_subscribers(news_detail, telegram_ids)
+        created_post(news_detail)
         return redirect(news)
     return render(request, 'main/create_post.html')
-
+    
 def like(request, id, slug):
     user = request.user
     news = get_object_or_404(News, id=id, slug=slug)

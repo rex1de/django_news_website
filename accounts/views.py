@@ -84,7 +84,3 @@ def edit_profile(request):
 def guest_page(request, id):
     profile = get_object_or_404(Profile, id=id)
     return render(request, 'registration/guest_page.html', {'profile': profile})
-
-def guest_page(request, id):
-    profile = get_object_or_404(Profile, id=id)
-    return render(request, 'registration/guest_page.html', {'profile': profile})
