@@ -20,7 +20,7 @@ def news(request, id, slug):
     news.save()
     return render(request, 'main/news.html', {'news': news,
                                               'comments': comments})
-
+    
 def category(request, slug):
     category = get_object_or_404(Category, slug=slug)
     news = News.objects.filter(category=category)

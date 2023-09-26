@@ -34,8 +34,15 @@
                 <li><a href="{{news.get_absolute_url}}" class="text-right">{{news.title}}</a></li>
                 {% endfor %}
                 </ol>
+                {% for associated in backends.associated %}
+                <ul>
+                <li>ID: {{ associated.uid }}</li>
+                <li>Provider: {{ associated.provider }}</li>
+                <li>Extra: {{ associated.extra_data }}</li>
+                </ul>
+                {% endfor %}
                 <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary btn-lg mb-5">Редактировать профиль</a>
-                <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary btn-lg mb-5">Привязать телеграм</a>
+                <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="django_news_bot" data-size="medium" data-radius="10" data-auth-url="https://1efd-46-150-98-236.ngrok-free.app/auth/complete/telegram/" data-request-access="write"></script>
             </div>
         </div>
     </div>

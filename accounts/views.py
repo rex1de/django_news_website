@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from .models import Profile
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from social_django.models import UserSocialAuth
+from django.contrib.auth.backends import ModelBackend
 # Create your views here.
 
 
@@ -18,13 +20,17 @@ def register(request):
         pwd = request.POST.get('password')
         user = User.objects.create_user(
             username=username, email=email, password=pwd, first_name=first_name, last_name=last_name)
-        login(request=request, user=user)
+        login(request=request, user=user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect('main:index')
 
 
 @login_required
 def profile(request):
+    user = request.user
+    # telegram_auth = UserSocialAuth.objects.filter(user=user, provider='telegram')[0]
+    # telegram_id = telegram_auth.uid if telegram_auth else None
     return render(request, 'registration/profile.html')
+    # return render(request, 'registration/profile.html', {'user_id': telegram_id})
 
 
 @login_required

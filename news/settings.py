@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=gx&&2fpkv7r+^9v!)ymkb2v6)-re+kundrodmn(+9vtn_51fd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,8 +40,18 @@ INSTALLED_APPS = [
     'main',
     'comments',
     'accounts',
-    'slugify'
+    'slugify',
+    'social_django'
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+    'social_core.backends.twitter.TwitterOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.telegram.TelegramAuth',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -67,6 +77,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'main.context_processors.categories',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -131,3 +143,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
+CSRF_TRUSTED_ORIGINS = ['https://1efd-46-150-98-236.ngrok-free.app']
+SOCIAL_AUTH_BOT_TOKEN = '6478915421:AAHZH_Zxp49blHcsl7bRga0WaxOQotNn-V4'
