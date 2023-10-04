@@ -40,7 +40,7 @@ class News(models.Model):
     text = models.TextField(max_length=300, verbose_name='Текст')
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     description = models.TextField(max_length=100, null=True, verbose_name='Описание')
-    image = models.ImageField(upload_to='news_images/', verbose_name='Изображение')
+    image = models.ImageField(upload_to='news_images/', verbose_name='Изображение', null=True)
     slug = models.SlugField(max_length=50, unique=True, verbose_name='Слаг')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')

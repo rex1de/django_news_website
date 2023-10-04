@@ -26,7 +26,7 @@ def register(request):
 
 @login_required
 def profile(request):
-    user = request.user
+    # user = request.user
     # telegram_auth = UserSocialAuth.objects.filter(user=user, provider='telegram')[0]
     # telegram_id = telegram_auth.uid if telegram_auth else None
     return render(request, 'registration/profile.html')

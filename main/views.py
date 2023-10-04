@@ -5,8 +5,8 @@ from .models import News, Category
 from accounts.models import Profile
 from django.db.models import Q
 from comments.models import Comment
-from .subscribe_bot import *
-
+from subscribe_bot import *
+from social_django.models import UserSocialAuth
 # Create your views here.
 
 def index(request):
@@ -51,7 +51,7 @@ def create_post(request):
         subscribed_users = Profile.objects.filter(subscription_categories=category)
         telegram_ids = []
         for i in subscribed_users:
-            telegram_ids.append(subscribed_users.telegram) 
+            telegram_ids.append(UserSocialAuth.objects.get(user=i.user).uid) 
         send_to_subscribers(news_detail, telegram_ids)
         created_post(news_detail)
         return redirect(news)

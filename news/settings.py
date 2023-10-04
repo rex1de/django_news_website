@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main',
     'comments',
     'accounts',
     'slugify',
-    'social_django'
+    'social_django',
+    'main'
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -143,5 +143,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
-CSRF_TRUSTED_ORIGINS = ['https://1efd-46-150-98-236.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://5bcc-46-150-98-236.ngrok-free.app']
 SOCIAL_AUTH_BOT_TOKEN = '6478915421:AAHZH_Zxp49blHcsl7bRga0WaxOQotNn-V4'
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None

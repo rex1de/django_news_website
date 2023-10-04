@@ -10,7 +10,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(null=True, upload_to='profile_images')
     bio = models.TextField()
-    telegram = models.CharField(max_length=40,verbose_name='Телеграм', null=True)
     subscription_categories = models.ManyToManyField(Category, related_name='subscribtion_categories', verbose_name="Категории для рассылки")
 
 
