@@ -14,7 +14,7 @@
                 {% else %}
                 <img class="rounded mb-3" width="200" height="200" src="{% static 'img/default.jpg' %}">
                 {% endif %}
-                <span class="font-weight-bold mt-2">{{user.username}}</span> 
+                <span class="font-weight-bold mt-2">{{user.username}}</span>
                 <span class="font-weight-bold">{{user.profile.bio}}</span>
             </div>
         </div>
@@ -34,15 +34,19 @@
                 <li><a href="{{news.get_absolute_url}}" class="text-right">{{news.title}}</a></li>
                 {% endfor %}
                 </ol>
+                <h3 class="text-right">Привязки</h3>
                 {% for associated in backends.associated %}
-                <ul>
-                <li>ID: {{ associated.uid }}</li>
-                <li>Provider: {{ associated.provider }}</li>
-                <li>Extra: {{ associated.extra_data }}</li>
-                </ul>
+                <form method=POST action={% url 'social:disconnect' backend=associated.provider %}>
+                    {% csrf_token %}
+                    <h4 class="text-right">{{associated.provider}} <button type="submit" class="btn btn-link btn-lg">Отвязать</button></h4>
+                </form>
                 {% endfor %}
-                <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary btn-lg mb-5">Редактировать профиль</a>
-                <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="django_news_bot" data-size="medium" data-radius="10" data-auth-url="https://5bcc-46-150-98-236.ngrok-free.app/auth/complete/telegram" data-request-access="write"></script>
+                <!--<div>-->
+                <!--    <a href="{% url 'social:begin' 'google-oauth2' %}"><img src="{% static 'img/lgoogle.png' %}" width="35" height="35" class="avatar-3" data-toggle="tooltip" title="Войти с помощью гугл"></a>-->
+                <!--    <a href="{% url 'social:begin' 'vk-oauth2' %}"><img src="{% static 'img/lvk.png' %}" width="45" height="45" class="avatar-3" data-toggle="tooltip" title="Войти с помощью вк"></a>-->
+                <!--    <script async src="https://telegram.org/js/telegram-widget.js?22" da ta-telegram-login="django_news_bot" data-size="medium" data-radius="10" data-auth-url="http://rex1de.pythonanywhere.com/auth/complete/telegram" data-request-access="write"></script>-->
+                <!--</div>-->
+                <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary btn-lg mt-2">Редактировать профиль</a>
             </div>
         </div>
     </div>

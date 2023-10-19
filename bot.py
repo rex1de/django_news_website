@@ -1,12 +1,10 @@
 import telebot
-from telebot import types 
+from telebot import types
 import os
 import django
 from slugify import slugify
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'news.settings')
-django.setup()
-
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'news.settings')
+# django.setup()
 from social_django.models import UserSocialAuth
 from main.models import News
 from main.models import Category
@@ -34,14 +32,14 @@ def send_news_details(news_details):
     bot.send_message('-4004087466', f"Опубликована новая новость\n{news_details['title']}\n{news_details['description']}\n{news_details['category']}")
 
 # def send_news_details(news_details):
-#     bot.send_photo('-4004087466', news_details['image'], f'''Опубликована новая новость\n{news_details['title']}\n{news_details['description']}\n{news_details['category']}''')    
+#     bot.send_photo('-4004087466', news_details['image'], f'''Опубликована новая новость\n{news_details['title']}\n{news_details['description']}\n{news_details['category']}''')
 
 @bot.message_handler(commands=['start'])
 def login_keyboard(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     button1 = types.KeyboardButton("Войти в аккаунт")
     markup.add(button1)
-    bot.reply_to(message, "Привет!\nЯ бот который умеет взаимодействовать с новостным сайтом\nВыбери действие на клавиатуре", reply_markup=markup) 
+    bot.reply_to(message, "Привет!\nЯ бот который умеет взаимодействовать с новостным сайтом\nВыбери действие на клавиатуре", reply_markup=markup)
 
 @bot.message_handler(func=lambda message: message.text=='Войти в аккаунт')
 def main_keyboard(message):
@@ -50,13 +48,13 @@ def main_keyboard(message):
                 types.KeyboardButton("Создать новость"),
                 types.KeyboardButton("Подписаться на рассылку")]
     markup.add(*buttons)
-    bot.reply_to(message, "Главное меню. Выберите действие на клавиатуре", reply_markup=markup) 
+    bot.reply_to(message, "Главное меню. Выберите действие на клавиатуре", reply_markup=markup)
 
 @bot.message_handler(func=lambda message: message.text=='Мой профиль')
 def profile_keyboard(message):
     user_id = message.chat.id
     user = UserSocialAuth.objects.get(provider='telegram', uid=user_id).user
-    bot.send_message(message.chat.id, 
+    bot.send_message(message.chat.id,
                      f"Профиль\n{user.first_name} {user.last_name}\n{user.username}\nПочта: {user.email}\nДата регистрации: {user.date_joined}\nПоследний онлайн: {user.last_login}\nОставлено комментариев: {len(user.profile.get_user_comments())}\nОпубликовано новостей: {len(user.profile.get_user_news())}")
 
 @bot.message_handler(func=lambda message: message.text=='Создать новость')
@@ -131,7 +129,7 @@ def category_selection(message):
     global create_post_markup
     post.category = message.text
     bot.send_message(message.chat.id, 'Категория выбрана', reply_markup=create_post_markup)
-    
+
 def text_validation(message):
     global post
     global create_post_markup
@@ -176,7 +174,7 @@ def image_validation(message):
 def subscription_keyboard(message):
     buttons = [[types.InlineKeyboardButton(category.name, callback_data=category.name, url=f'https://t.me/django_news_subscribe_bot?start={category.slug}') for category in Category.objects.all()]]
     subscription_markup = types.InlineKeyboardMarkup(buttons, row_width=4)
-    bot.reply_to(message, "Выберите ниже желаемые категории", reply_markup=subscription_markup) 
+    bot.reply_to(message, "Выберите ниже желаемые категории", reply_markup=subscription_markup)
 
 # @bot.message_handler(func=lambda message: message.text=='Подписаться на рассылку')
 # def subscription_keyboard(message):
@@ -187,7 +185,7 @@ def subscription_keyboard(message):
 #                 types.InlineKeyboardButton("Бизнес", callback_data='Бизнес')],
 #                 [types.InlineKeyboardButton("Подписаться на рассылку", callback_data='Подписка', url='https://t.me/django_news_subscribe_bot')]]
 #     subscription_markup = types.InlineKeyboardMarkup(buttons, row_width=4)
-#     bot.reply_to(message, "Выберите ниже желаемые категории", reply_markup=subscription_markup) 
+#     bot.reply_to(message, "Выберите ниже желаемые категории", reply_markup=subscription_markup)
 
 # @bot.callback_query_handler(func=lambda call: True)
 # def inline_callback(call):

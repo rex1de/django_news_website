@@ -2,8 +2,8 @@ import telebot, os, django
 
 API_TOKEN = '6352958349:AAEO9_So9Zg3bFQD4H3vcToEfeyslFzFqDU'
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'news.settings')
-django.setup()
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'news.settings')
+# django.setup()
 
 from social_django.models import UserSocialAuth
 from main.models import Category
@@ -18,7 +18,7 @@ def subscribe_user(message):
     if category_slug:
         category = Category.objects.get(slug=category_slug)
         user.profile.subscription_categories.add(category)
-        bot.reply_to(message, f"Вы подписались на {category.name}") 
+        bot.reply_to(message, f"Вы подписались на {category.name}")
     else:
         bot.send_mesage(user_id, 'Привет! Я бот рассылки\nЧтобы подписаться на рассылку нужно обязательно перейти по ссылке из основного бота')
 
@@ -34,7 +34,7 @@ def created_post(news_details):
 
 # def send_news_details(news_details):
 #     bot.send_photo('-4004087466', news_details['image'], f'''Опубликована новая новость\n{news_details['title']}\n{news_details['description']}\n{news_details['category']}''')
-    
+
 
 if __name__ == '__main__':
     bot.polling()

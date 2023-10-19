@@ -52,8 +52,17 @@
             <input type="file" class="form-control" name="profile_image" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
         </div>
           </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="text-right">Привязать социальные сети</h5>
+        </div>
+        <div>
+            <a href="{% url 'social:begin' backend='google-oauth2' %}"><img src="{% static 'img/lgoogle.png' %}" width="35" height="35" class="avatar-3" data-toggle="tooltip" title="Войти с помощью гугл"></a>
+            <a href="{% url 'social:begin' 'vk-oauth2' %}"><img src="{% static 'img/lvk.png' %}" width="45" height="45" class="avatar-3" data-toggle="tooltip" title="Войти с помощью вк"></a>
+            <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="django_news_bot" data-userpic="false" data-size="medium" data-radius="10" data-auth-url="http://rex1de.pythonanywhere.com/auth/complete/telegram" data-request-access="write"></script>
+        </div>
           <div class="mt-5 text-center">
             <button class="btn btn-primary btn-lg mb-5" type="submit">Сохранить</button>
+            <a href="{% url 'accounts:profile' %}" class="btn btn-primary btn-lg mb-5">Отмена</a>
           </div>
         </form>
         </div>
